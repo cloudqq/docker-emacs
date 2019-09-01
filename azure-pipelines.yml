@@ -20,11 +20,13 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+
     - task: Docker@2
       displayName: Build an emacs 26
       inputs:
         command: buildAndPush
         dockerfile: 'Dockerfile.cloudqq'
-        containerRegistry: $(dockhub)
+
+        containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
         tags: |
           $(tag)
