@@ -1,7 +1,7 @@
 ARG VERSION=latest
 FROM ubuntu:$VERSION
 
-MAINTAINER JAremko <w3techplaygound@gmail.com>
+MAINTAINER cloudqq <cloudqq@gmail.com>
 
 # Fix "Couldn't register with accessibility bus" error message
 ENV NO_AT_BRIDGE=1
@@ -10,7 +10,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update && apt-get install \
+    && apt-get update \
+    && apt-get install \
     bash \
     build-essential \
     dbus-x11 \
