@@ -28,5 +28,6 @@ stages:
         dockerfile: 'Dockerfile.cloudqq'
         containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
         imageName: "$(Build.Repository.Name):latest"
+        includeLatestTag: true
         tags: |
           $(tag)
