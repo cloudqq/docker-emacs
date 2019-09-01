@@ -30,5 +30,4 @@ stages:
         imageName: "$(Build.Repository.Name):latest"
         includeLatestTag: true
         tags: |
-          $(tag)
-	  latest
+          latest
