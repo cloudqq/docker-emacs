@@ -31,3 +31,4 @@ stages:
         includeLatestTag: true
         tags: |
           $(tag)
+	  latest
