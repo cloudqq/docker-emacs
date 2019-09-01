@@ -41,6 +41,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libpoppler-glib-dev \
   libpoppler-private-dev \
   automake \
+  isync \
+  notmuch \
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
     && cd /tmp/su-exec \
