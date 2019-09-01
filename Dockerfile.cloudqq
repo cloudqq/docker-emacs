@@ -35,6 +35,10 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     ttf-wqy-microhei \
     ttf-wqy-zenhei \
     xfonts-wqy \
+  libpng-dev \
+  libz-dev \
+  libpoppler-glib-dev \
+  libpoppler-private-dev 
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
     && cd /tmp/su-exec \
@@ -42,8 +46,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && chmod 770 su-exec \
     && mv ./su-exec /usr/local/sbin/ \
 # Cleanup
-    && apt-get purge build-essential \
-    && apt-get autoremove \
+#    && apt-get purge build-essential \
+#    && apt-get autoremove \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 COPY asEnvUser /usr/local/sbin/
