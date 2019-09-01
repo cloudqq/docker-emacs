@@ -1,0 +1,45 @@
+FROM cloudqq/emacs.base.env:v1.1
+
+MAINTAINER cloudqq <cloudqq@gmail.com>	
+
+# Emacs
+RUN apt-get update \
+    && apt-get install  software-properties-common \
+    && apt-get install apt-utils \
+    && apt-add-repository ppa:kelleyk/emacs \
+    && apt-get update \
+    && apt-get install emacs26 \
+    && apt-get purge software-properties-common \
+    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+
+ENV UNAME="emacser" \
+    GNAME="emacs" \
+    UHOME="/home/emacs" \
+    UID="1000" \
+    GID="1000" \
+    WORKSPACE="/mnt/workspace" \
+    SHELL="/bin/bash"
+
+# Install Cask
+
+ENV CASK_EMACS="/usr/bin/emacs"
+RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go \
+|python3
+
+#&& sudo ln -s "${UHOME}/.cask/bin/cask" "/usr/local/bin/cask"
+
+ENV FONT_HOME="${UHOME}/.local/share/fonts"
+
+RUN mkdir -p "{$FONT_HOME}/adobe-fonts/source-code-pro"
+
+RUN (git clone \
+ 	--branch release \
+	--depth 1 \
+	'https://github.com/adobe-fonts/source-code-pro.git' \
+	"$FONT_HOME/adobe-fonts/source-code-pro" && \
+	fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+
+WORKDIR "${WORKSPACE}"
+
+ENTRYPOINT ["asEnvUser"]
+CMD ["bash", "-c", "emacs; /bin/bash"]
