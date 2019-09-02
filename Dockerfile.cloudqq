@@ -28,7 +28,10 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     curl \
     rlwrap \
     silversearcher-ag \
-    gnupg2 \
+  gnupg2 \
+  msmtp \
+  msmtp-mta \
+  ca-certificates \
     ttf-mscorefonts-installer \
     fonts-wqy-zenhei \
     fonts-wqy-microhei \
