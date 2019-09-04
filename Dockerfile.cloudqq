@@ -46,6 +46,15 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   automake \
   isync \
   notmuch \
+  ibus \
+  ibus-clutter \
+  ibus-gtk \
+  ibus-gtk3 \
+  ibus-qt4 \
+  ibus-pinyin \
+  ibus-rime \
+  python-gi \
+  python3-gi \
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
     && cd /tmp/su-exec \
@@ -71,7 +80,6 @@ RUN apt-get update \
     && apt-add-repository ppa:kelleyk/emacs \
     && apt-get update \
     && apt-get install emacs26 emacs26-el \
-    && apt-get install ibus ibus-clutter ibus-gtk ibus-gtk3 ibus-qt4 ibus-pinyin ibus-rime \
     && apt-get purge software-properties-common \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
