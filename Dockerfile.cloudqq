@@ -70,7 +70,7 @@ RUN apt-get update \
     && apt-get install apt-utils \
     && apt-add-repository ppa:kelleyk/emacs \
     && apt-get update \
-    && apt-get install emacs26 \
+    && apt-get install emacs26 emacs26-el \
     && apt-get purge software-properties-common \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
