@@ -71,7 +71,7 @@ RUN apt-get update \
     && apt-add-repository ppa:kelleyk/emacs \
     && apt-get update \
     && apt-get install emacs26 emacs26-el \
-    && apt-get install ibus ibus-clutter ibus-gtk ibus-gtk3 ibus-qt4 ibus-pingyin ibus-rime \
+    && apt-get install ibus ibus-clutter ibus-gtk ibus-gtk3 ibus-qt4 ibus-pinyin ibus-rime \
     && apt-get purge software-properties-common \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
