@@ -44,6 +44,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libpoppler-glib-dev \
   libpoppler-private-dev \
   automake \
+  fasd \
   isync \
   notmuch \
   ibus \
