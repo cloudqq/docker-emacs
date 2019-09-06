@@ -27,7 +27,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     wget \
     curl \
     rlwrap \
-    silversearcher-ag \
+  silversearcher-ag \
+  zsh \
   gnupg2 \
   msmtp \
   msmtp-mta \
