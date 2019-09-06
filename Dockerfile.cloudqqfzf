@@ -117,8 +117,11 @@ RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
   && make install \
   && ./install --all
 
+ENV GOROOT=/usr/local/go
+ENV GOPATH=/mnt/"${WORKSPACE}/go"
+ENV PATH="${GOPATH}/bin:${GOROOT}/bin:${PATH}"
+
 WORKDIR "${WORKSPACE}"
 
 ENTRYPOINT ["asEnvUser"]
 CMD ["bash", "-c", "emacs; /bin/bash"]
-
