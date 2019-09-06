@@ -105,6 +105,10 @@ RUN (git clone \
 	"$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
 
+
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/fzf && cd /usr/local/fzf && make install && ./install --all
+
+
 WORKDIR "${WORKSPACE}"
 
 ENTRYPOINT ["asEnvUser"]
