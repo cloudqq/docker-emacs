@@ -105,6 +105,13 @@ RUN (git clone \
 	"$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
 
+RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
+  && sudo tar xvf go1.13.linux-amd64.tar.gz \
+  && mv go /usr/local \
+
+RUN export GOROOT=/usr/local/go \
+  && export GOPATH=/mnt/workspace/go \
+  && export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/fzf && cd /usr/local/fzf && make install && ./install --all
 
