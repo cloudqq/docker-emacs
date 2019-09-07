@@ -119,7 +119,7 @@ RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
 
 ENV GOROOT=/usr/local/go
 ENV GOPATH=/mnt/workspace/go
-ENV PATH="${GOROOT}/bin:${GOROOT}/bin:${PATH}:/usr/local/fzf/bin"
+ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
 
 WORKDIR "${WORKSPACE}"
 
