@@ -131,7 +131,7 @@ ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
 RUN  export GOROOT=/usr/local/go \
   && export GOPATH=/mnt/workspace/go \
   && export PATH=$GOPATH/bin:$GOROOT/bin:$PATH \
-  && echo "export path=$PATH" > /etc/environment
+  && echo "export PATH=$PATH" > /etc/environment
 
 WORKDIR "${WORKSPACE}"
 
