@@ -67,7 +67,14 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
 # Cleanup
 #    && apt-get purge build-essential \
 #    && apt-get autoremove \
-    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+  && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+
+
+RUN echo 'deb https://apt.emacsos.com/debian /' > /etc/apt/sources.list.d/emacsod.list
+
+RUN curl https://apt.emacsos.com/debian/apt-pub.key | apt-key add - \
+  && apt update && apt install zero-pinyin-service zero-panel
+
 
 COPY asEnvUser /usr/local/sbin/
 
