@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  tag: 'zero'
 
 stages:
 - stage: Build
@@ -24,11 +24,11 @@ stages:
     - task: Docker@2
       displayName: Build an image 26
       inputs:
-        command: buildAndPush
+        command: build
         containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
-        repository: cloudqq/emacs-docker
+        repository: cloudqq/emacs-docker-zero
         imageName: "$(Build.Repository.Name):$(tag)"
         includeLatestTag: true
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.cloudqqfzf'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.zero'
         tags: |
           $(tag)
