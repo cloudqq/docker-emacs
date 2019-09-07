@@ -1,0 +1,15 @@
+ARG VERSION=latest
+FROM ubuntu:$VERSION
+
+MAINTAINER cloudqq <cloudqq@gmail.com>
+
+# Fix "Couldn't register with accessibility bus" error message
+ENV NO_AT_BRIDGE=1
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN echo 'https://apt.emacsos.com/debian/' > /etc/apt/sources.list.d/emacsod.list \
+  && curl https://apt.emacsos.com/debian/apt-pub.key | apt-key add - \
+  && apt update && apt install zero-pinyin-service zero-panel
+
+
