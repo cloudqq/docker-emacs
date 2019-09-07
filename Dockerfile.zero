@@ -19,7 +19,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   curl \
   gzip 
 
-RUN echo 'https://apt.emacsos.com/debian/' > /etc/apt/sources.list.d/emacsod.list
+RUN echo 'deb https://apt.emacsos.com/debian/' > /etc/apt/sources.list.d/emacsod.list
 
 RUN curl https://apt.emacsos.com/debian/apt-pub.key | apt-key add - \
   && apt update && apt install zero-pinyin-service zero-panel
