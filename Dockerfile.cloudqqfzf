@@ -103,7 +103,7 @@ ENV UNAME="cloudqq" \
 
 ENV FONT_HOME="${UHOME}/.local/share/fonts"
 
-RUN mkdir -p "{$FONT_HOME}/adobe-fonts/source-code-pro"
+RUN mkdir -p "${FONT_HOME}/adobe-fonts/source-code-pro"
 
 RUN (git clone \
  	--branch release \
@@ -128,7 +128,10 @@ ENV GOROOT=/usr/local/go
 ENV GOPATH=/mnt/workspace/go
 ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
 
-RUN echo 'export "${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"' > /etc/environment
+RUN  export GOROOT=/usr/local/go \
+  && export GOPATH=/mnt/workspace/go \
+  && export PATH=$GOPATH/bin:$GOROOT/bin:$PATH \
+  && echo $PATH > /etc/environment
 
 WORKDIR "${WORKSPACE}"
 
