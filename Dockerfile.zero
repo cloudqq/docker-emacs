@@ -8,6 +8,16 @@ ENV NO_AT_BRIDGE=1
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install \
+  bash \
+  build-essential \
+  dbus-x11 \
+  fontconfig \
+  git \
+  gzip 
+
 RUN echo 'https://apt.emacsos.com/debian/' > /etc/apt/sources.list.d/emacsod.list \
   && curl https://apt.emacsos.com/debian/apt-pub.key | apt-key add - \
   && apt update && apt install zero-pinyin-service zero-panel
