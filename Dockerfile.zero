@@ -16,6 +16,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   dbus-x11 \
   fontconfig \
   git \
+  curl \
   gzip 
 
 RUN echo 'https://apt.emacsos.com/debian/' > /etc/apt/sources.list.d/emacsod.list \
