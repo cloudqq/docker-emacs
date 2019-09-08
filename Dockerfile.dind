@@ -51,9 +51,7 @@ RUN apk update \
   texinfo \
   tiff-dev \
   graphviz \
-#  silversearcher-ag \
   the_silver_searcher \
-
 #  gnupg2 \
 #  rlwrap \
   msttcorefonts-installer \
@@ -63,6 +61,7 @@ RUN apk update \
   ttf-liberation \
   ttf-ubuntu-font-family \
   wqy-zenhei@edge \
+  rlwrap@edge \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /usr/local/sbin \
