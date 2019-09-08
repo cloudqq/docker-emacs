@@ -4,13 +4,16 @@ FROM docker:dind
 MAINTAINER cloudqq <cloudqq@gmail.com>
 
 # Fix "Couldn't register with accessibility bus" error message
-#ENV NO_AT_BRIDGE=1
+ENV NO_AT_BRIDGE=1
 
 # RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 ENV GOLANG_VERSION 1.13
 
-RUN echo @edge http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
+RUN echo @edge http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
+&&  echo http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories \
+&&  echo http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories 
+
 RUN apk update \
   && apk add build-base \
 #  font-config \
@@ -24,6 +27,8 @@ RUN apk update \
   aspell-en \
   autoconf \
   automake \
+  mesa-gl \
+  sudo \
   curl \
   dpkg \
   dpkg-dev \
@@ -64,8 +69,9 @@ RUN apk update \
   ttf-ubuntu-font-family \
   wqy-zenhei@edge \
   rlwrap@edge \
-  emacs-x11 \
+  && apk --update add emacs-x11 \
   && rm -rf /var/cache/apk/*
+
 
 RUN mkdir -p /usr/local/sbin \
   && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
