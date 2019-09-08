@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: 'alpline'
+  tag: 'alpine'
 
 stages:
 - stage: Build
@@ -25,9 +25,9 @@ stages:
       inputs:
         command: buildAndPush
         containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
-        repository: cloudqq/emacs-docker-alpline
+        repository: cloudqq/emacs-docker-alpine
         imageName: "$(Build.Repository.Name):$(tag)"
         includeLatestTag: true
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.alpline'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.alpine'
         tags: |
           $(tag)
