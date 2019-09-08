@@ -47,6 +47,8 @@ RUN apk update \
   texinfo \
   tiff-dev \
   graphviz \
+  silversearcher-ag \
+  gnupg2 \
 #  rlwrap \
   msttcorefonts-installer \
   ttf-dejavu \
