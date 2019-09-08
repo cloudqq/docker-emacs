@@ -13,6 +13,40 @@ RUN apk update \
   wget \
   git \
   bash \
+  dbus-x11 \
+  font-config \
+  alsa-lib-dev \
+  aspell \
+  aspell-en \
+  autoconf \
+  automake \
+  curl \
+  dpkg \
+  dpkg-dev \
+  fontconfig-dev \
+  gawk \
+  gconf-dev \
+  giflib-dev \
+  git \
+  glib-dev \
+  gnupg \
+  gnutls-dev \
+  gtk+3.0-dev \
+  lcms2-dev \
+  libcanberra-gtk3 \
+  libjpeg-turbo-dev \
+  libpng-dev \
+  librsvg-dev \
+  libxaw-dev \
+  libxml2-dev \
+  jansson-dev \
+  ncurses-dev \
+  openssh-client \
+  pango-dev \
+  paxmark \
+  python \
+  texinfo \
+  tiff-dev \
 && rm -rf /var/cache/apk/*
 
 #ENV DEBIAN_FRONTEND noninteractive
