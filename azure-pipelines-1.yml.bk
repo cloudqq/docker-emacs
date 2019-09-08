@@ -1,0 +1,34 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: 'zero'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      name: Default
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      displayName: Build an image 26
+      inputs:
+        command: build
+        containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
+        repository: cloudqq/emacs-docker-zero
+        imageName: "$(Build.Repository.Name):$(tag)"
+        includeLatestTag: true
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.zero'
+        tags: |
+          $(tag)
