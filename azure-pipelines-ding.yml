@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: 'ding'
+  tag: 'dind'
 
 stages:
 - stage: Build
@@ -26,9 +26,9 @@ stages:
       inputs:
         command: buildAndPush
         containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
-        repository: cloudqq/emacs-docker-ding
+        repository: cloudqq/emacs-docker-dind
         imageName: "$(Build.Repository.Name):$(tag)"
         includeLatestTag: true
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.ding'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dind'
         tags: |
           $(tag)
