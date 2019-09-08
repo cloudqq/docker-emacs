@@ -1,5 +1,5 @@
 ARG VERSION=ding
-FROM docker:$VERSION
+FROM docker:ding
 
 MAINTAINER cloudqq <cloudqq@gmail.com>
 
