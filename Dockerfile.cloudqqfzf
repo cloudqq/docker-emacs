@@ -1,5 +1,5 @@
-ARG VERSION=ding
-FROM docker:ding
+ARG VERSION=latest
+FROM ubuntu:$VERSION
 
 MAINTAINER cloudqq <cloudqq@gmail.com>
 
@@ -8,10 +8,14 @@ ENV NO_AT_BRIDGE=1
 
 ENV DEBIAN_FRONTEND noninteractive
 
+
+
+
+
 # basic stuff
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update \
-    && apt-get install \
+  && apt-get install \
     bash \
     build-essential \
     dbus-x11 \
@@ -33,6 +37,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   msmtp \
   msmtp-mta \
   ca-certificates \
+  apt-transport-https \
     ttf-mscorefonts-installer \
     fonts-wqy-zenhei \
     fonts-wqy-microhei \
@@ -90,8 +95,15 @@ RUN apt-get update \
     && apt-add-repository ppa:kelleyk/emacs \
     && apt-get update \
     && apt-get install emacs26 emacs26-el \
-    && apt-get purge software-properties-common \
-    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+  && apt-get purge software-properties-common \
+  && curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+  add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+  $(lsb_release -cs) \
+  stable" && \
+  apt-get update && \
+  apt-get -y install docker-ce \
+  && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 ENV UNAME="cloudqq" \
     GNAME="cloudqq" \
