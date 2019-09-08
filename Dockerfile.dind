@@ -134,8 +134,11 @@ RUN	export \
 	; \
 	\
 	export PATH="/usr/local/go/bin:$PATH"; \
-	go version
-
+  go version \
+  && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/fzf \
+  && cd /usr/local/fzf \
+  && make install \
+  && ./install --all
 
   # && export GOROOT=/usr/local/go \
   # && export GOPATH=/mnt/workspace/go \
