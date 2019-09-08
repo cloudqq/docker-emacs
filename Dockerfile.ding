@@ -23,15 +23,14 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libgl1-mesa-glx \
   make \
   sudo \
-  tar \
   unzip \
   wget \
   curl \
   gnupg2 \
   ca-certificates \
-  apt-transport-https \
-  && apt-get update \
-  && curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+  apt-transport-https
+
+RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
   add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
   $(lsb_release -cs) \
@@ -40,7 +39,5 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   apt-get -y install docker-ce \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 # ^^^^^^^ Those layers are shared ^^^^^^^
-WORKDIR "${WORKSPACE}"
 
-ENTRYPOINT ["asEnvUser"]
 CMD ["bash", "sh"]
