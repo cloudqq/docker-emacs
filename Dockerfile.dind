@@ -7,14 +7,13 @@ MAINTAINER cloudqq <cloudqq@gmail.com>
 #ENV NO_AT_BRIDGE=1
 
 RUN apk update \
-  && apk add --virtual build-dependencies \
-  build-base \
+  && apk add build-base \
+  font-config \
   gcc \
   wget \
   git \
   bash \
   dbus-x11 \
-  font-config \
   alsa-lib-dev \
   aspell \
   aspell-en \
@@ -47,6 +46,7 @@ RUN apk update \
   python \
   texinfo \
   tiff-dev \
+  graphviz \
   rlwrap \
   msttcorefonts-installer \
   ttf-dejavu \
