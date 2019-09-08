@@ -77,6 +77,28 @@ COPY asEnvUser /usr/local/sbin/
 RUN chown root /usr/local/sbin/asEnvUser \
   && chmod 700  /usr/local/sbin/asEnvUser
 
+ENV UNAME="cloudqq" \
+  GNAME="cloudqq" \
+  UHOME="/home/cloudqq" \
+  UID="1000" \
+  GID="1000" \
+  WORKSPACE="/mnt/workspace" \
+  SHELL="/bin/bash"
+
+ENV FONT_HOME="${UHOME}/.local/share/fonts"
+
+RUN mkdir -p "{$FONT_HOME}/adobe-fonts/source-code-pro"
+
+RUN (git clone \
+  --branch release \
+  --depth 1 \
+  'https://github.com/adobe-fonts/source-code-pro.git' \
+  "$FONT_HOME/adobe-fonts/source-code-pro" && \
+  fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+
+
+
+
 
 #ENV DEBIAN_FRONTEND noninteractive
 
