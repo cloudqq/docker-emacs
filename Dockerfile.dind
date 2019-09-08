@@ -87,14 +87,14 @@ ENV UNAME="cloudqq" \
 
 ENV FONT_HOME="${UHOME}/.local/share/fonts"
 
-RUN mkdir -p "{$FONT_HOME}/adobe-fonts/source-code-pro"
+RUN mkdir -p "${FONT_HOME}/adobe-fonts/source-code-pro"
 
-RUN (git clone \
+RUN git clone \
   --branch release \
   --depth 1 \
   'https://github.com/adobe-fonts/source-code-pro.git' \
-  "$FONT_HOME/adobe-fonts/source-code-pro" && \
-  fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+  "${FONT_HOME}/adobe-fonts/source-code-pro" && \
+  fc-cache -f -v "${FONT_HOME}/adobe-fonts/source-code-pro"
 
 RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
   && sudo tar xvf go1.13.linux-amd64.tar.gz \
