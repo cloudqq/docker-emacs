@@ -62,6 +62,7 @@ RUN apk update \
   ttf-ubuntu-font-family \
   wqy-zenhei@edge \
   rlwrap@edge \
+  emacs \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /usr/local/sbin \
@@ -72,6 +73,9 @@ RUN mkdir -p /usr/local/sbin \
   && mv ./su-exec /usr/local/sbin
 
 COPY asEnvUser /usr/local/sbin/
+
+RUN chown root /usr/local/sbin/asEnvUser \
+  && chmod 700  /usr/local/sbin/asEnvUser
 
 
 #ENV DEBIAN_FRONTEND noninteractive
