@@ -6,7 +6,7 @@ MAINTAINER cloudqq <cloudqq@gmail.com>
 # Fix "Couldn't register with accessibility bus" error message
 #ENV NO_AT_BRIDGE=1
 
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
+# RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 ENV GOLANG_VERSION 1.13
 
