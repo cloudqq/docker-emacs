@@ -24,7 +24,7 @@ stages:
     - task: Docker@2
       displayName: Build an image 26
       inputs:
-        command: build
+        command: buildAndPush
         containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
         repository: cloudqq/emacs-docker-ding
         imageName: "$(Build.Repository.Name):$(tag)"
