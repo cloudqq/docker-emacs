@@ -1,43 +1,23 @@
-ARG VERSION=latest
-FROM ubuntu:$VERSION
+#ARG VERSION=latest
+FROM docker:ding
 
 MAINTAINER cloudqq <cloudqq@gmail.com>
 
 # Fix "Couldn't register with accessibility bus" error message
-ENV NO_AT_BRIDGE=1
+#ENV NO_AT_BRIDGE=1
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN apk update \
+  && apk add --virtual build-dependencies \
+  build-base \
+  gcc \
+  wget \
+  git \
+  bash \
+&& rm -rf /var/cache/apk/*
+
+#ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-  && apt-get update \
-  && apt-get install \
-  software-properties-common \
-  bash \
-  build-essential \
-  dbus-x11 \
-  fontconfig \
-  git \
-  gzip \
-  language-pack-en-base \
-  libgl1-mesa-glx \
-  make \
-  sudo \
-  unzip \
-  wget \
-  curl \
-  gnupg2 \
-  ca-certificates \
-  apt-transport-https
 
-RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
-  add-apt-repository \
-  "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
-  $(lsb_release -cs) \
-  stable" && \
-  apt-get update && \
-  apt-get -y install docker-ce \
-  && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
-# ^^^^^^^ Those layers are shared ^^^^^^^
 
 CMD ["bash", "sh"]
