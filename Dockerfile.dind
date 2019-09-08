@@ -53,6 +53,7 @@ RUN apk update \
   tiff-dev \
   graphviz \
   the_silver_searcher \
+  go \
 #  gnupg2 \
 #  rlwrap \
   msttcorefonts-installer \
@@ -98,7 +99,6 @@ RUN git clone \
   && fc-cache -fv
 
 #RUN fc-cache -f -v "${FONT_HOME}/adobe-fonts/source-code-pro"
-
 
 RUN	export \
 # set GOROOT_BOOTSTRAP such that we can actually build Go
