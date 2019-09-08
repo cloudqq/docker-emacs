@@ -64,7 +64,7 @@ RUN apk update \
   ttf-ubuntu-font-family \
   wqy-zenhei@edge \
   rlwrap@edge \
-  emacs-x11@edge \
+  emacs-x11 \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /usr/local/sbin \
