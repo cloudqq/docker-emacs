@@ -26,7 +26,7 @@ RUN apk add --no-cache \
         librsvg-dev \
         libxaw-dev \
         libxml2-dev \
-        jansson-dev \
+        jansson-dev \ 
         ncurses-dev \
         openssh-client \
         pango-dev \
@@ -39,9 +39,10 @@ RUN apk add --no-cache \
 ENV EMACS_BRANCH="master"
 ENV EMACS_VERSION="master"
 
-COPY source /opt/emacs/
+RUN curl -O https://mirrors.ustc.edu.cn/gnu/emacs/emacs-26.3.tar.gz \
+&& tar xvf emacs-26.3.tar.gz -C /opt/
 
-RUN cd /opt/emacs && \
+RUN cd /opt/emacs-26.3 && \
     if [ -d patches ]; then git apply patches/*; fi && \
     ./autogen.sh && \
     ./configure --with-modules && \
@@ -50,35 +51,5 @@ RUN cd /opt/emacs && \
 
 ENV PATH="/root/.cask/bin:$PATH"
 RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-
-CMD ["emacs"]
-
-# ------------------------------------------------------------
-
-FROM alpine:3.9
-
-RUN apk add --no-cache \
-        alsa-lib \
-        aspell \
-        aspell-en \
-        curl \
-        desktop-file-utils \
-        gconf \
-        giflib \
-        gnupg \
-        gtk+3.0 \
-        lcms2 \
-        libcanberra-gtk3 \
-        librsvg \
-        libxpm \
-        jansson \
-        openssh-client \
-        tiff \
-    && /bin/true
-
-ENV EMACS_BRANCH="master"
-ENV EMACS_VERSION="master"
-
-COPY --from=0 /usr/local /usr/local
 
 CMD ["emacs"]
