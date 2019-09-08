@@ -65,7 +65,8 @@ RUN apk update \
   wqy-zenhei@edge \
   && rm -rf /var/cache/apk/*
 
-RUN git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
+RUN mkdir -p /usr/local/sbin \
+  && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
   && cd /tmp/su-exec \
   && make \
   && chmod 770 su-exec \
