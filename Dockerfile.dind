@@ -152,10 +152,10 @@ RUN	export \
 # ENV GOPATH=/mnt/workspace/go
 # ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
 
-
 #ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
+WORKDIR "${WORKSPACE}"
 
-
-CMD ["bash", "sh"]
+ENTRYPOINT ["asEnvUser"]
+CMD ["bash", "-c", "emacs; /bin/bash"]
