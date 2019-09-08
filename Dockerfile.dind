@@ -8,7 +8,7 @@ MAINTAINER cloudqq <cloudqq@gmail.com>
 
 RUN apk update \
   && apk add build-base \
-  font-config \
+#  font-config \
   gcc \
   wget \
   git \
@@ -47,7 +47,7 @@ RUN apk update \
   texinfo \
   tiff-dev \
   graphviz \
-  rlwrap \
+#  rlwrap \
   msttcorefonts-installer \
   ttf-dejavu \
   ttf-droid \
