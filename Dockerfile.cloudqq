@@ -130,9 +130,8 @@ ENV GOROOT=/usr/local/go
 ENV GOPATH=/mnt/workspace/go
 ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
 
-
 RUN docker_url=https://download.docker.com/linux/static/stable/x86_64 \
-&&  docker_version=18.03.1-ce \
+&&  docker_version=18.09.7 \
 &&  curl -fsSL $docker_url/docker-$docker_version.tgz | \
   tar zxvf - --strip 1 -C /usr/bin docker/docker
 
