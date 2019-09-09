@@ -59,6 +59,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   python3-gi \
   python-xlib \
   net-tools \
+  netcat \
   telnet \
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
