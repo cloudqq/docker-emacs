@@ -10,8 +10,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
   && apt-get install  software-properties-common \
-  && apt-get install apt-utils \
+  apt-utils \
   && apt-add-repository ppa:kelleyk/emacs \
   && apt-get update \
   && apt-get install \
