@@ -9,7 +9,8 @@ ENV NO_AT_BRIDGE=1
 ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+    && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update \
     && apt-get install \
     bash \
