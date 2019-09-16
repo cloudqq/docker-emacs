@@ -34,6 +34,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libyaml-cpp-dev \
   libleveldb-dev \
   libmarisa-dev \
+  doxygen \
   silversearcher-ag \
   zsh \
   gnupg2 \
@@ -79,11 +80,9 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
 #    && apt-get autoremove \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
-
 # Manually install libopencc
 RUN git clone https://github.com/BYVoid/OpenCC.git
 WORKDIR OpenCC/
-RUN apt install -y doxygen
 RUN make
 RUN make install
 
