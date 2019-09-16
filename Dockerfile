@@ -10,24 +10,29 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
 RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
-    && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update \
-    && apt-get install \
-    bash \
-    build-essential \
-    dbus-x11 \
-    fontconfig \
-    git \
-    gzip \
-    language-pack-en-base \
-    libgl1-mesa-glx \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get install  software-properties-common \
+  && apt-get install apt-utils \
+  && apt-add-repository ppa:kelleyk/emacs \
+  && apt-get update \
+  && apt-get install \
+  bash \
+  build-essential \
+  emacs26 \
+  emacs26-el \
+  dbus-x11 \
+  fontconfig \
+  git \
+  gzip \
+  language-pack-en-base \
+  libgl1-mesa-glx \
   make \
   cmake \
-    sudo \
-    tar \
-    unzip \
-    wget \
-    curl \
+  sudo \
+  tar \
+  unzip \
+  wget \
+  curl \
   rlwrap \
   libboost-dev \
   libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev \
@@ -43,12 +48,12 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   msmtp \
   msmtp-mta \
   ca-certificates \
-    ttf-mscorefonts-installer \
-    fonts-wqy-zenhei \
-    fonts-wqy-microhei \
-    ttf-wqy-microhei \
-    ttf-wqy-zenhei \
-    xfonts-wqy \
+  ttf-mscorefonts-installer \
+  fonts-wqy-zenhei \
+  fonts-wqy-microhei \
+  ttf-wqy-microhei \
+  ttf-wqy-zenhei \
+  xfonts-wqy \
   libpng-dev \
   libz-dev \
   libpoppler-glib-dev \
@@ -102,15 +107,6 @@ WORKDIR librime/
 RUN make
 RUN make install
 
-
-
-
-
-
-
-
-
-
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
@@ -119,14 +115,6 @@ RUN chown root /usr/local/sbin/asEnvUser \
 
 # ^^^^^^^ Those layers are shared ^^^^^^^
 
-RUN apt-get update \
-    && apt-get install  software-properties-common \
-    && apt-get install apt-utils \
-    && apt-add-repository ppa:kelleyk/emacs \
-    && apt-get update \
-    && apt-get install emacs26 emacs26-el \
-    && apt-get purge software-properties-common \
-  && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
