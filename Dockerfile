@@ -21,7 +21,8 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
     gzip \
     language-pack-en-base \
     libgl1-mesa-glx \
-    make \
+  make \
+  cmake \
     sudo \
     tar \
     unzip \
