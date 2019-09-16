@@ -10,22 +10,28 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # basic stuff
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update \
-    && apt-get install \
-    bash \
-    build-essential \
-    dbus-x11 \
-    fontconfig \
-    git \
-    gzip \
-    language-pack-en-base \
-    libgl1-mesa-glx \
-    make \
-    sudo \
-    tar \
-    unzip \
-    wget \
-    curl \
+  && apt-get install  software-properties-common \
+  && apt-get install apt-utils \
+  && apt-add-repository ppa:kelleyk/emacs \
+  && apt-get update \
+  && apt-get install \
+  bash \
+  build-essential \
+  emacs26 \
+  emacs26-el \
+  dbus-x11 \
+  fontconfig \
+  git \
+  gzip \
+  language-pack-en-base \
+  libgl1-mesa-glx \
+  make \
+  cmake \
+  sudo \
+  tar \
+  unzip \
+  wget \
+  curl \
   rlwrap \
   libboost-dev \
   libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev \
