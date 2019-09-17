@@ -49,6 +49,4 @@ mkdir -p "${WORKSPACE}"
 chown "${UID}":"${GID}" "${WORKSPACE}"
 cd "${WORKSPACE}"
 
-sudo usermod -aG docker "{UNAME}"
-
 su-exec "${UNAME}" "$@"
