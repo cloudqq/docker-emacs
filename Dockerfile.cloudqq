@@ -64,13 +64,13 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   fasd \
   isync \
   notmuch \
-  ibus \
-  ibus-clutter \
-  ibus-gtk \
-  ibus-gtk3 \
-  ibus-qt4 \
-  ibus-pinyin \
-  ibus-rime \
+  # ibus \
+  # ibus-clutter \
+  # ibus-gtk \
+  # ibus-gtk3 \
+  # ibus-qt4 \
+  # ibus-pinyin \
+  # ibus-rime \
   python-gi \
   python3-gi \
   python-xlib \
