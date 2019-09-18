@@ -158,6 +158,9 @@ RUN (git clone \
 	"$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
 
+ENV http_proxy 10.1.0.9:1088
+ENV https_proxy 10.1.0.9:1088
+
 RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
   && sudo tar xvf go1.13.linux-amd64.tar.gz \
   && sudo mv go /usr/local \
