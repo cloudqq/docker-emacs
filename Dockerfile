@@ -108,14 +108,7 @@ WORKDIR librime/
 RUN make
 RUN make install
 
-
-
-
-
-
-
-
-
+RUN curl -fsSL https://git.io/rime-install | bash
 
 COPY asEnvUser /usr/local/sbin/
 
@@ -137,6 +130,7 @@ RUN apt-get update \
 RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
 RUN make
+
 
 
 ENV UNAME="cloudqq" \
