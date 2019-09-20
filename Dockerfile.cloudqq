@@ -109,15 +109,6 @@ WORKDIR librime/
 RUN make
 RUN make install
 
-
-
-
-
-
-
-
-
-
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
@@ -138,7 +129,6 @@ RUN apt-get update \
 RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
 RUN make
-
 
 ENV UNAME="cloudqq" \
     GNAME="cloudqq" \
