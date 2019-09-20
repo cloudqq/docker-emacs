@@ -109,6 +109,8 @@ WORKDIR librime/
 RUN make
 RUN make install
 
+RUN rime_dir=/usr/local/share/rime && curl -fsSL https://git.io/rime-install | bash
+
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers

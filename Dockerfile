@@ -110,6 +110,7 @@ RUN make install
 
 RUN curl -fsSL https://git.io/rime-install | bash
 
+
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
