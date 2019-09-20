@@ -11,8 +11,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # basic stuff
 RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
   && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
   && apt-get install  software-properties-common \
-  && apt-get install apt-utils \
+  apt-utils \
   && apt-add-repository ppa:kelleyk/emacs \
   && apt-get update \
   && apt-get install \
@@ -63,13 +64,13 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   fasd \
   isync \
   notmuch \
-  ibus \
-  ibus-clutter \
-  ibus-gtk \
-  ibus-gtk3 \
-  ibus-qt4 \
-  ibus-pinyin \
-  ibus-rime \
+  # ibus \
+  # ibus-clutter \
+  # ibus-gtk \
+  # ibus-gtk3 \
+  # ibus-qt4 \
+  # ibus-pinyin \
+  # ibus-rime \
   python-gi \
   python3-gi \
   python-xlib \
@@ -107,6 +108,8 @@ WORKDIR librime/
 RUN make
 RUN make install
 
+RUN curl -fsSL https://git.io/rime-install | bash
+
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
@@ -115,10 +118,19 @@ RUN chown root /usr/local/sbin/asEnvUser \
 
 # ^^^^^^^ Those layers are shared ^^^^^^^
 
+RUN apt-get update \
+    && apt-get install  software-properties-common \
+    && apt-get install apt-utils \
+    && apt-add-repository ppa:kelleyk/emacs \
+    && apt-get update \
+    && apt-get install emacs26 emacs26-el \
+    && apt-get purge software-properties-common \
+  && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
 RUN make
+
 
 
 ENV UNAME="cloudqq" \
@@ -166,13 +178,12 @@ RUN docker_url=https://download.docker.com/linux/static/stable/x86_64 \
   && curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
   && chmod +x /usr/local/bin/docker-compose
 
-
 #RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 #  echo 'Asia/Shanghai' > /etc/timezone && date
 #RUN sed -e 's;UTC=yes;UTC=no;' -i /etc/default/rcS
 RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
   echo 'LANG=zh_CN.UTF-8' >> /etc/default/locale && \
-  locale-gen zn_CN.UTF-8
+  locale-gen zh_CN.UTF-8
 
 ENV LC_CTYPE zh_CN.UTF-8
 
