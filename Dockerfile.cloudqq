@@ -71,6 +71,7 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   # ibus-qt4 \
   # ibus-pinyin \
   # ibus-rime \
+  ditaa \
   python-gi \
   python3-gi \
   python-xlib \
