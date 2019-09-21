@@ -1,0 +1,23 @@
+ARG VERSION=latest
+FROM ubuntu:$VERSION
+
+MAINTAINER cloudqq <cloudqq@gmail.com>
+
+# Fix "Couldn't register with accessibility bus" error message
+ENV NO_AT_BRIDGE=1
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install curl fontconfig
+
+ENV FONT_HOME="/usr/share/fonts"  
+
+RUN mkdir -p "$FONT_HOME/microsoft/cascadia-code" && \
+  curl -L -o "$FONT_HOME/microsoft/cascadia-code/Cascadia.ttf" https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf && \
+  fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code"
+
+CMD ["bash", "-c", "emacs; /bin/bash"]
+
