@@ -152,8 +152,7 @@ RUN (git clone \
   make dir -p "$FONT_HOME/microsoft/cascadia-code" && \
   curl -o "$FONT_HOME/microsoft/cascadia-code/Cascadia.ttf" https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro" && \
-  fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code"
-  )
+  fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code")
 
 RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
   && sudo tar xvf go1.13.linux-amd64.tar.gz \
