@@ -19,5 +19,8 @@ RUN mkdir -p "$FONT_HOME/microsoft/cascadia-code" && \
   curl -L -o "$FONT_HOME/microsoft/cascadia-code/Cascadia.ttf" https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf && \
   fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code"
 
+COPY windows "$FONT_HOME/windows"
+RUN fc-cache -f -v "$FONT_HOME/windows"
+
 CMD ["bash", "-c", "emacs; /bin/bash"]
 
