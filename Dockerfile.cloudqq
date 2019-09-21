@@ -148,7 +148,7 @@ RUN (git clone \
  	--branch release \
 	--depth 1 \
 	'https://github.com/adobe-fonts/source-code-pro.git' \
-  "$FONT_HOME/adobe-fonts/source-code-pro" &&
+  "$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
 
 RUN make dir -p "$FONT_HOME/microsoft/cascadia-code" && \
