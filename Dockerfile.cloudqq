@@ -148,10 +148,11 @@ RUN (git clone \
  	--branch release \
 	--depth 1 \
 	'https://github.com/adobe-fonts/source-code-pro.git' \
-  "$FONT_HOME/adobe-fonts/source-code-pro" && \
-  make dir -p "$FONT_HOME/microsoft/cascadia-code" && \
+  "$FONT_HOME/adobe-fonts/source-code-pro" &&
+  fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+
+RUN make dir -p "$FONT_HOME/microsoft/cascadia-code" && \
   curl -o "$FONT_HOME/microsoft/cascadia-code/Cascadia.ttf" https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf && \
-  fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code")
 
 RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
