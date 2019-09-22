@@ -21,7 +21,6 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   build-essential \
   emacs26 \
   emacs26-el \
-  dbus-x11 \
   fontconfig \
   git \
   gzip \
