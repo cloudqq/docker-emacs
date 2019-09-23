@@ -72,7 +72,11 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   net-tools \
   netcat \
   telnet \
-
+  texlive-base \
+  texlive-xetex \
+  texlive-lang-chinese \
+  latex-cjk-all \
+  texlive-extra-utils \
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
     && cd /tmp/su-exec \
