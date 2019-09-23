@@ -111,6 +111,7 @@ RUN make install
 ENV rime_dir=/usr/local/share/rime
 RUN curl -fsSL https://git.io/rime-install | bash
 
+
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
@@ -120,6 +121,8 @@ RUN chown root /usr/local/sbin/asEnvUser \
 RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
 RUN make
+
+
 
 ENV UNAME="cloudqq" \
     GNAME="cloudqq" \

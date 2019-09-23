@@ -21,7 +21,6 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   build-essential \
   emacs26 \
   emacs26-el \
-  dbus-x11 \
   fontconfig \
   git \
   gzip \
@@ -64,19 +63,20 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   fasd \
   isync \
   notmuch \
-  # ibus \
-  # ibus-clutter \
-  # ibus-gtk \
-  # ibus-gtk3 \
-  # ibus-qt4 \
-  # ibus-pinyin \
-  # ibus-rime \
+  ditaa \
+  plantuml \
+  graphviz \
   python-gi \
   python3-gi \
   python-xlib \
   net-tools \
   netcat \
   telnet \
+  texlive-base \
+  texlive-xetex \
+  texlive-lang-chinese \
+  latex-cjk-all \
+  texlive-extra-utils \
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
     && cd /tmp/su-exec \
@@ -108,6 +108,7 @@ WORKDIR librime/
 RUN make
 RUN make install
 
+ENV rime_dir=/usr/local/share/rime
 RUN curl -fsSL https://git.io/rime-install | bash
 
 
@@ -116,17 +117,6 @@ COPY asEnvUser /usr/local/sbin/
 # Only for sudoers
 RUN chown root /usr/local/sbin/asEnvUser \
     && chmod 700  /usr/local/sbin/asEnvUser
-
-# ^^^^^^^ Those layers are shared ^^^^^^^
-
-RUN apt-get update \
-    && apt-get install  software-properties-common \
-    && apt-get install apt-utils \
-    && apt-add-repository ppa:kelleyk/emacs \
-    && apt-get update \
-    && apt-get install emacs26 emacs26-el \
-    && apt-get purge software-properties-common \
-  && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
@@ -142,7 +132,7 @@ ENV UNAME="cloudqq" \
     WORKSPACE="/mnt/workspace" \
     SHELL="/bin/bash"
 
-ENV FONT_HOME="${UHOME}/.local/share/fonts"
+ENV FONT_HOME="/usr/share/fonts"
 
 RUN mkdir -p "{$FONT_HOME}/adobe-fonts/source-code-pro"
 
@@ -150,8 +140,15 @@ RUN (git clone \
  	--branch release \
 	--depth 1 \
 	'https://github.com/adobe-fonts/source-code-pro.git' \
-	"$FONT_HOME/adobe-fonts/source-code-pro" && \
+  "$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+
+RUN mkdir -p "$FONT_HOME/microsoft/cascadia-code" && \
+  curl -L -o "$FONT_HOME/microsoft/cascadia-code/Cascadia.ttf" https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf && \
+  fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code"
+
+COPY windows "$FONT_HOME/windows"
+RUN fc-cache -f -v "$FONT_HOME/windows"
 
 ENV http_proxy 10.1.0.9:1088
 ENV https_proxy 10.1.0.9:1088
