@@ -61,6 +61,7 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   libpoppler-private-dev \
   automake \
   fasd \
+  fd-find \
   isync \
   notmuch \
   ditaa \
