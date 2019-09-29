@@ -90,6 +90,13 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
 #    && apt-get autoremove \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
+RUN docker_url=https://download.docker.com/linux/static/stable/x86_64 \
+  &&  docker_version=18.09.7 \
+  &&  curl -fsSL $docker_url/docker-$docker_version.tgz | \
+  tar zxvf - --strip 1 -C /usr/bin docker/docker \
+  && curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+  && chmod +x /usr/local/bin/docker-compose
+
 # Manually install libopencc
 RUN git clone https://github.com/BYVoid/OpenCC.git
 WORKDIR OpenCC/
@@ -143,10 +150,6 @@ RUN (git clone \
   "$FONT_HOME/adobe-fonts/source-code-pro" && \
   fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
 
-RUN mkdir -p "$FONT_HOME/microsoft/cascadia-code" && \
-  curl -L -o "$FONT_HOME/microsoft/cascadia-code/Cascadia.ttf" https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf && \
-  fc-cache -f -v "$FONT_HOME/microsoft/cascadia-code"
-
 COPY windows "$FONT_HOME/windows"
 RUN fc-cache -f -v "$FONT_HOME/windows"
 
@@ -174,12 +177,6 @@ ENV GOROOT=/usr/local/go
 ENV GOPATH=/mnt/workspace/go
 ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
 
-RUN docker_url=https://download.docker.com/linux/static/stable/x86_64 \
-  &&  docker_version=18.09.7 \
-  &&  curl -fsSL $docker_url/docker-$docker_version.tgz | \
-  tar zxvf - --strip 1 -C /usr/bin docker/docker \
-  && curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
-  && chmod +x /usr/local/bin/docker-compose
 
 #RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 #  echo 'Asia/Shanghai' > /etc/timezone && date
