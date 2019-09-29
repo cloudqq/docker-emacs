@@ -150,7 +150,7 @@ COPY windows "$FONT_HOME/windows"
 RUN fc-cache -f -v "$FONT_HOME/windows"
 
 COPY stardict-dict /tmp/dict 
-RUN mkdir -p /usr/share/stardict/dict \
+RUN mkdir -p /usr/share/stardict/dic && cd /usr/share/stardict/dic \
   && for n in $(find /tmp/dict/*.bz2); do tar jxvf $n; done \
   && rm -rf /tmp/dict
 
