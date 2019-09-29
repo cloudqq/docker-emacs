@@ -1,0 +1,32 @@
+ARG VERSION=latest
+FROM ubuntu:$VERSION
+
+MAINTAINER cloudqq <cloudqq@gmail.com>
+
+# Fix "Couldn't register with accessibility bus" error message
+ENV NO_AT_BRIDGE=1
+
+ENV DEBIAN_FRONTEND noninteractive
+
+COPY stardict-dict /tmp/dict 
+RUN mkdir -p /usr/share/stardict/dict \
+  && for n in $(find /tmp/dict/*.bz2); do tar jxvf $n; done \
+  && rm -rf /tmp/dict
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  &&  echo 'APT::Get::Install-Recommends "false";' >> /etc/apt/apt.conf \
+  && echo 'APT::Get::Install-Suggests "false";' >> /etc/apt/apt.conf \
+  && apt-get update && apt-get install curl git build-essential libreadline-dev
+
+RUN apt-get install cmake zlib1g-dev libglib2.0
+RUN git clone https://github.com/Dushistov/sdcv.git \
+&& mkdir sdcv-build && cd sdcv-build && cmake -DENABLE_NLS=False ../sdcv && make && make install
+
+# COPY star-dict-installer.sh /root
+# ENV http_proxy 10.3.4.4:1088
+# ENV https_proxy 10.3.4.4:108
+# RUN  cd /root && sh star-dict-installer.sh
+
+CMD ["bash"]
+
