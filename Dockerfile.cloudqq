@@ -161,7 +161,7 @@ RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
   && cd /usr/local/fzf \
   && make install \
   && ./install --all \
-  && git clone https://github.com/BurnSushi/ripgrep \
+  && git clone --depth 1 https://github.com/BurntSushi/ripgrep \
   && cd ripgrep \
   && cargo build --release \
   && ./target/release/rg --version \
