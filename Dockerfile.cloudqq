@@ -34,7 +34,6 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   wget \
   curl \
   rlwrap \
-  ripgrep \
   libboost-dev \
   libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev \
   libgoogle-glog-dev \
@@ -161,7 +160,12 @@ RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
   && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/fzf \
   && cd /usr/local/fzf \
   && make install \
-  && ./install --all
+  && ./install --all \
+  && git clone https://github.com/BurnSushi/ripgrep \
+  && cd ripgrep \
+  && cargo build --release \
+  && ./target/release/rg --version \
+  && cp ./target/release/rg /usr/local/bin
 
 ENV GOROOT=/usr/local/go
 ENV GOPATH=/mnt/workspace/go
