@@ -1,0 +1,32 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      displayName: Build an emacs 26
+      inputs:
+        command: buildAndPush
+        dockerfile: 'Dockerfile.slim'
+        containerRegistry: '64e08230-6fb6-4ca4-9d69-605b75b9e247'
+        repository: cloudqq/emacs-docker-slim
+        imageName: "$(Build.Repository.Name):latest"
+        includeLatestTag: true
+        tags: |
+          latest
