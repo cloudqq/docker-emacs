@@ -120,7 +120,6 @@ RUN make install
 ENV rime_dir=/usr/local/share/rime
 RUN curl -fsSL https://git.io/rime-install | bash
 
-
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
