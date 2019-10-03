@@ -1,0 +1,49 @@
+FROM ubuntu:latest
+
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install build-essential git cmake zlib1g-dev \
+  pkg-config libglib2.0  libreadline-dev
+
+
+RUN apt-get install doxygen  python-gi python3-gi python-xlib \
+libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev libgoogle-glog-dev libgtest-dev 
+
+# Manually install libopencc
+RUN git clone https://github.com/BYVoid/OpenCC.git
+WORKDIR OpenCC/
+RUN make
+RUN make install
+
+# Fix libgtest problem during compiling
+#WORKDIR /usr/src/gtest
+#RUN cmake CMakeLists.txt
+#RUN make
+#copy or symlink libgtest.a and libgtest_main.a to your /usr/lib folder
+#RUN cp *.a /usr/lib
+
+# Build librime
+WORKDIR /
+RUN git clone https://github.com/rime/librime.git
+WORKDIR librime/
+RUN make
+RUN make install
+
+ENV rime_dir=/usr/local/share/rime
+RUN curl -fsSL https://git.io/rime-install | bash
+
+RUN git clone  https://gitlab.com/liberime/liberime.git
+WORKDIR liberime/
+RUN make
+
+# COPY star-dict-installer.sh /root
+# ENV http_proxy 10.3.4.4:1088
+# ENV https_proxy 10.3.4.4:108
+# RUN  cd /root && sh star-dict-installer.sh
+
+CMD ["bash"]
+
