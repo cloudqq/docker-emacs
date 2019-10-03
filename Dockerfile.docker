@@ -1,3 +1,33 @@
+FROM golang:latest AS builder0
+RUN \
+  git clone --depth 1 https://github.com/junegunn/fzf.git  \
+  && cd fzf \
+  && make release && make install && pwd
+
+FROM rust:latest AS builder1
+
+RUN \
+  git clone --depth 1 https://github.com/BurntSushi/ripgrep \
+  && cd ripgrep \
+  && cargo build --release \
+  && ./target/release/rg --version \
+  && cp ./target/release/rg /usr/local/bin
+
+FROM ubuntu:latest AS builder2
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install build-essential git cmake zlib1g-dev
+
+RUN apt-get install pkg-config libglib2.0  libreadline-dev
+
+RUN git clone https://github.com/Dushistov/sdcv.git \
+  && mkdir sdcv-build && cd sdcv-build && cmake -DENABLE_NLS=False ../sdcv && make && make install
+
+
 ARG VERSION=latest
 FROM ubuntu:$VERSION
 
@@ -157,25 +187,13 @@ RUN mkdir -p /usr/share/stardict/dic && cd /usr/share/stardict/dic \
   && for n in $(find /tmp/dict/*.bz2); do tar jxvf $n; done \
   && rm -rf /tmp/dict
 
-RUN git clone https://github.com/Dushistov/sdcv.git \
-  && mkdir sdcv-build && cd sdcv-build && cmake -DENABLE_NLS=False ../sdcv && make && make install
+# install fzf
+COPY --from=builder0  /go/fzf/bin/fzf /usr/local/bin
 
-RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
-  && sudo tar xvf go1.13.linux-amd64.tar.gz \
-  && sudo mv go /usr/local \
-  &&  export GOROOT=/usr/local/go \
-  && export GOPATH=/mnt/workspace/go \
-  && export PATH=$GOPATH/bin:$GOROOT/bin:$PATH \
-  && go env \
-  && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/fzf \
-  && cd /usr/local/fzf \
-  && make install \
-  && ./install --all
+#install ripgrep
+COPY --from=builder1 /usr/local/bin /usr/local/bin
 
-ENV GOROOT=/usr/local/go
-ENV GOPATH=/mnt/workspace/go
-ENV PATH="${GOROOT}/bin:${GOROOT}/bin:/usr/local/fzf/bin:${PATH}"
-
+COPY --from=builder2 /sdcv-build/sdcv /usr/local/bin
 
 #RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 #  echo 'Asia/Shanghai' > /etc/timezone && date

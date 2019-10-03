@@ -1,0 +1,22 @@
+ARG VERSION=latest
+FROM golang:$VERSION
+
+RUN \
+  git clone --depth 1 https://github.com/junegunn/fzf.git  \
+  && cd fzf \
+  && make release && make install
+#  && ./install --all \
+
+#FROM alpine:latest
+#LABEL maintainer "Mario Tao <cloudqq@gmail.com>""
+
+
+
+
+# COPY star-dict-installer.sh /root
+# ENV http_proxy 10.3.4.4:1088
+# ENV https_proxy 10.3.4.4:108
+# RUN  cd /root && sh star-dict-installer.sh
+
+CMD ["bash"]
+

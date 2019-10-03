@@ -1,0 +1,24 @@
+FROM ubuntu:latest AS builder
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install build-essential git cmake zlib1g-dev
+
+RUN apt-get install pkg-config libglib2.0  libreadline-dev
+
+RUN git clone https://github.com/Dushistov/sdcv.git \
+  && mkdir sdcv-build && cd sdcv-build && cmake -DENABLE_NLS=False ../sdcv && make && make install
+
+FROM ubuntu:latest
+COPY --from=builder /sdcv-build/sdcv /usr/local/bin
+
+# COPY star-dict-installer.sh /root
+# ENV http_proxy 10.3.4.4:1088
+# ENV https_proxy 10.3.4.4:108
+# RUN  cd /root && sh star-dict-installer.sh
+
+CMD ["bash"]
+

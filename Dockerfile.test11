@@ -1,0 +1,27 @@
+ARG VERSION=latest
+FROM rust:$VERSION
+
+RUN \
+  git clone --depth 1 https://github.com/BurntSushi/ripgrep \
+  && cd ripgrep \
+  && cargo build --release \
+  && ./target/release/rg --version \
+  && cp ./target/release/rg /usr/local/bin
+  # git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/fzf \
+  # && cd /usr/local/fzf \
+  # && make install \
+  # && ./install --all \
+
+#FROM alpine:latest
+#LABEL maintainer "Mario Tao <cloudqq@gmail.com>""
+
+
+
+
+# COPY star-dict-installer.sh /root
+# ENV http_proxy 10.3.4.4:1088
+# ENV https_proxy 10.3.4.4:108
+# RUN  cd /root && sh star-dict-installer.sh
+
+CMD ["bash"]
+
