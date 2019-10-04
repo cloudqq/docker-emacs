@@ -144,7 +144,7 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   net-tools \
   netcat \
   telnet \
-  libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev  \
+  libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev libgoogle-glog-dev libgtest-dev  \
     && apt-get purge build-essential \
     && apt-get autoremove \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
