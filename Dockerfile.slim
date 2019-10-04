@@ -133,6 +133,9 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   xfonts-wqy \
   libpng-dev \
   libz-dev \
+  libyaml-cpp-dev \
+  libleveldb-dev \
+  libmarisa-dev \
   libreadline-dev \
   libpoppler-glib-dev \
   libpoppler-glib-dev \
@@ -206,7 +209,8 @@ COPY --from=builder3 /librime/build/bin/*.txt /usr/local/share/rime/
 COPY --from=builder3 /librime/build/bin/rime_dict_manager /usr/local/bin/
 COPY --from=builder3 /librime/build/bin/rime_deployer /usr/local/bin/
 COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/lib/rime/
-RUN cd /usr/local/lib/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
+COPY --from=builder3 /usr/lib/libopencc.so.2 /usr/local/lib/rime/
+RUN cd /usr/local/lib/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so && ln -s libopencc.so.2 libopencc.so
 COPY --from=builder3 /librime/liberime/build/liberime.so /usr/local/lib/rime/
 
 RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf && ldconfig
@@ -221,6 +225,8 @@ RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
 ENV LC_CTYPE zh_CN.UTF-8
 
 WORKDIR "${WORKSPACE}"
+
+#RUN apt-get update && apt-get install libyaml-cpp-dev  libleveldb-dev   libmarisa-dev 
 
 ENTRYPOINT ["asEnvUser"]
 CMD ["bash", "-c", "emacs; /bin/bash"]
