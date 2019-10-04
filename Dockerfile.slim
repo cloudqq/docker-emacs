@@ -30,7 +30,6 @@ RUN git clone https://github.com/Dushistov/sdcv.git \
 
 FROM ubuntu:latest AS builder3
 
-
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
@@ -55,8 +54,6 @@ RUN cmake CMakeLists.txt
 RUN make
 #copy or symlink libgtest.a and libgtest_main.a to your /usr/lib folder
 RUN cp *.a /usr/lib
-
-
 
 RUN apt-get install libc6-dev   libyaml-cpp-dev   libleveldb-dev \
   libmarisa-dev  curl
@@ -147,6 +144,7 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   net-tools \
   netcat \
   telnet \
+  libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev  \
     && apt-get purge build-essential \
     && apt-get autoremove \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
@@ -210,7 +208,6 @@ COPY --from=builder3 /librime/build/bin/rime_deployer /usr/local/bin/
 COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/rime/
 RUN cd /usr/local/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
 COPY --from=builder3 /librime/liberime/build/liberime.so /usr/local/rime/
-
 
 
 #RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \

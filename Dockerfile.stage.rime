@@ -11,7 +11,8 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
 
 
 RUN apt-get install doxygen  python-gi python3-gi python-xlib \
-libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev libgoogle-glog-dev libgtest-dev 
+  libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev libgoogle-glog-dev libgtest-dev
+
 
 # Manually install libopencc
 RUN git clone https://github.com/BYVoid/OpenCC.git
