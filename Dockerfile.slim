@@ -205,12 +205,11 @@ COPY --from=builder3 /librime/build/bin/*.yaml /usr/local/share/rime/
 COPY --from=builder3 /librime/build/bin/*.txt /usr/local/share/rime/
 COPY --from=builder3 /librime/build/bin/rime_dict_manager /usr/local/bin/
 COPY --from=builder3 /librime/build/bin/rime_deployer /usr/local/bin/
-COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/rime/
-RUN cd /usr/local/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
+COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/lib/rime/
+RUN cd /usr/local/lib/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
 COPY --from=builder3 /librime/liberime/build/liberime.so /usr/local/lib/rime/
 
 RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf
-
 
 #RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 #  echo 'Asia/Shanghai' > /etc/timezone && date
