@@ -60,6 +60,7 @@ COPY --from=builder /librime/build/lib/librime.so.1.5.3 /usr/local/rime/
 RUN cd /usr/local/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
 COPY --from=builder /librime/liberime/build/liberime.so /usr/local/rime/
 
+RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf
 # COPY star-dict-installer.sh /root
 # RUN  cd /root && sh star-dict-installer.sh
 
