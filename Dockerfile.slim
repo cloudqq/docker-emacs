@@ -212,6 +212,7 @@ COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/lib/rime/
 COPY --from=builder3 /usr/lib/libopencc.so.2 /usr/local/lib/rime/
 RUN cd /usr/local/lib/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so && ln -s libopencc.so.2 libopencc.so
 COPY --from=builder3 /librime/liberime/build/liberime.so /usr/local/lib/rime/
+COPY --from=builder /usr/share/opencc/* /usr/share/opencc/
 
 RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf && ldconfig
 

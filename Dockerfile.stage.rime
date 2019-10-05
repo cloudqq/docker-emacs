@@ -59,6 +59,32 @@ COPY --from=builder /librime/build/bin/rime_deployer /usr/local/bin/
 COPY --from=builder /librime/build/lib/librime.so.1.5.3 /usr/local/rime/
 RUN cd /usr/local/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
 COPY --from=builder /librime/liberime/build/liberime.so /usr/local/rime/
+COPY --from=builder /usr/share/opencc/* /usr/share/opencc/
+
+# -- Installing: /usr/share/opencc/STCharacters.ocd
+# -- Installing: /usr/share/opencc/STPhrases.ocd
+# -- Installing: /usr/share/opencc/TSCharacters.ocd
+# -- Installing: /usr/share/opencc/TSPhrases.ocd
+# -- Installing: /usr/share/opencc/TWVariants.ocd
+# -- Installing: /usr/share/opencc/TWVariantsRevPhrases.ocd
+# -- Installing: /usr/share/opencc/JPVariants.ocd
+# -- Installing: /usr/share/opencc/HKVariants.ocd
+# -- Installing: /usr/share/opencc/HKVariantsPhrases.ocd
+# -- Installing: /usr/share/opencc/HKVariantsRevPhrases.ocd
+# -- Installing: /usr/share/opencc/TWPhrases.ocd
+# -- Installing: /usr/share/opencc/TWPhrasesRev.ocd
+# -- Installing: /usr/share/opencc/TWVariantsRev.ocd
+# -- Installing: /usr/share/opencc/HKVariantsRev.ocd
+# -- Installing: /usr/share/opencc/s2t.json
+# -- Installing: /usr/share/opencc/t2s.json
+# -- Installing: /usr/share/opencc/s2tw.json
+# -- Installing: /usr/share/opencc/s2twp.json
+# -- Installing: /usr/share/opencc/tw2s.json
+# -- Installing: /usr/share/opencc/tw2sp.json
+# -- Installing: /usr/share/opencc/t2tw.json
+# -- Installing: /usr/share/opencc/s2hk.json
+# -- Installing: /usr/share/opencc/hk2s.json
+# -- Installing: /usr/share/opencc/t2hk.json
 
 RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf
 # COPY star-dict-installer.sh /root
